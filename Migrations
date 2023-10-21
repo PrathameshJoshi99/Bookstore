@@ -1,5 +1,3 @@
-// database/migrations/2021_03_25_000000_create_books_table.php
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -12,12 +10,18 @@ class CreateBooksTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('author');
-            $table->date('publication_date');
-            $table->string('isbn');
+            $table->text('description')->nullable();
+            $table->string('isbn', 13)->unique();
             $table->string('genre');
+            $table->date('publication_date');
+            // Add more columns as needed
+
             $table->timestamps();
         });
     }
 
     public function down()
     {
+        Schema::dropIfExists('books');
+    }
+}
